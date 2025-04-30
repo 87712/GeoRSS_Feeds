@@ -1,0 +1,26 @@
+name: Auto Update GeoRSS Feed
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every hour; you can change this
+  workflow_dispatch:      # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  update-feed:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: pip install requests
+
+    - name: Run Python Script to Update GeoRSS
+      run: |
+        python update_script.py
